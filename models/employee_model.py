@@ -1,6 +1,6 @@
 from database.connection import db
 
-employee_collection = db["employees"]
+employee_collection = db["employees"]  # ✅ Required
 
 def create_employee(user_id, name, position, branch_id):
     employee_collection.insert_one({

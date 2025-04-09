@@ -14,12 +14,16 @@ def transfer_page():
 
     st.title("💸 Transfer Funds")
 
-    sender_id = user_data["user_id"]
-    receiver_id = st.text_input("Receiver User ID")
+    receiver_account_number = st.text_input("Receiver Account Number")
     amount = st.number_input("Amount to Transfer", min_value=1.0, step=1.0)
 
     if st.button("Transfer"):
-        success, message = transfer_funds(sender_id, receiver_id, amount, user_data["role"])
+        success, message = transfer_funds(
+            sender_user_id=user_data["user_id"],
+            receiver_account_number=receiver_account_number,
+            amount=amount,
+            role=user_data["role"]
+        )
         if success:
             st.success(message)
         else:

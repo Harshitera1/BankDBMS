@@ -7,4 +7,6 @@ load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 
 client = MongoClient(MONGO_URI)
-db = client["the_pot_bank"]
+db = client["bankDB"]
+print("🔌 Mongo connected to:", db.list_collection_names())
+
