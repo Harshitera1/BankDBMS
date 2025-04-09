@@ -14,8 +14,7 @@ def login_popup():
                 st.session_state.username = username
                 st.success(f"Logged in as {result['role'].capitalize()}")
 
-                # ✅ Redirect safely to Dashboard
                 st.session_state.page = "📊 Dashboard"
-                st.stop()  # Safe fallback (halts and refreshes)
+                st.stop()
             else:
                 st.error(result["message"])
