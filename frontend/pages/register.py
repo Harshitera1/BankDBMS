@@ -11,7 +11,7 @@ def register_page():
     email = st.text_input("Email (Customer Only)")
 
     branches = get_all_branches()
-    ifsc_codes = [branch["ifsc_code"] for branch in branches]
+    ifsc_codes = [branch["ifsc"] for branch in branches]
     ifsc_code = st.selectbox("Select Bank IFSC Code", ifsc_codes)
 
     role = st.selectbox("Select Role", ["customer", "employee", "manager"])
