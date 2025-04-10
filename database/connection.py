@@ -5,8 +5,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
-
 client = MongoClient(MONGO_URI)
 db = client["bankDB"]
-print("🔌 Mongo connected to:", db.list_collection_names())
 
+try:
+    print("🔌 Mongo connected to:", db.list_collection_names())
+except Exception as e:
+    print("❌ MongoDB connection failed:", e)
