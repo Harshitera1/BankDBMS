@@ -1,3 +1,5 @@
+print("🧪 Starting app...")
+
 import streamlit as st
 
 st.set_page_config(page_title="THE POT BANK", layout="wide")
@@ -56,3 +58,5 @@ elif choice == "💸 Transfer":
 elif choice == "👥 View Users":
     st.session_state.page = "👥 View Users"
     view_users_page()
+print("🧪 Starting app...")
+
