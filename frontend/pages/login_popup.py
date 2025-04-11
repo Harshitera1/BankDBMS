@@ -1,24 +1,11 @@
 import streamlit as st
 from database.connection import db
 import bcrypt
-import jwt
-import datetime
 import os
 from dotenv import load_dotenv
+from backend.auth.jwt_handler import generate_token  # ✅ Reuse central function
 
-# Load environment variables
 load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY", "yourSuperSecretKey")
-
-def generate_token(user_id, username, role):
-    """Generate a JWT token for authentication"""
-    payload = {
-        "user_id": user_id,
-        "username": username,
-        "role": role,
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-    }
-    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
 def login_user(username, password):
     """Authenticate user with username and password"""
@@ -27,16 +14,14 @@ def login_user(username, password):
     if not user:
         return {"status": False, "message": "Invalid credentials"}
     
-    # Check if password is hashed
     stored_password = user.get("password")
     if isinstance(stored_password, bytes) and bcrypt.checkpw(password.encode('utf-8'), stored_password):
         token = generate_token(user["user_id"], user["username"], user["role"])
         return {"status": True, "token": token, "role": user["role"]}
-    # Fallback for unhashed passwords during development
     elif user.get("password_raw") == password:
         token = generate_token(user["user_id"], user["username"], user["role"])
         return {"status": True, "token": token, "role": user["role"]}
-    
+
     return {"status": False, "message": "Invalid credentials"}
 
 def login_popup():
@@ -56,7 +41,6 @@ def login_popup():
                 st.session_state.role = result["role"]
                 st.session_state.username = username
                 st.success(f"Logged in as {result['role'].capitalize()}")
-
                 st.session_state.page = "📊 Dashboard"
                 st.stop()
             else:

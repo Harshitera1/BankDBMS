@@ -2,13 +2,18 @@ import streamlit as st
 
 st.set_page_config(page_title="THE POT BANK", layout="wide")
 
-# Page imports
-from frontend.pages.home import display_home
-from frontend.pages.login_popup import login_popup
-from frontend.pages.register import register_page
-from frontend.pages.dashboard import dashboard
-from frontend.pages.transfer import transfer_page
-from frontend.pages.view_users import view_users_page
+# ✅ Add safe import handling with debug logs
+try:
+    print("🔄 Importing pages...")
+    from frontend.pages.home import display_home
+    from frontend.pages.login_popup import login_popup
+    from frontend.pages.register import register_page
+    from frontend.pages.dashboard import dashboard
+    from frontend.pages.transfer import transfer_page
+    from frontend.pages.view_users import view_users_page
+except Exception as e:
+    st.error(f"🚨 Failed to import page modules: {e}")
+    st.stop()
 
 # Initialize session state
 if "token" not in st.session_state:
@@ -21,7 +26,8 @@ if "page" not in st.session_state:
 menu = ["🏠 Home", "🔐 Login", "📝 Register", "📊 Dashboard", "💸 Transfer", "👥 View Users"]
 default_index = menu.index(st.session_state.page)
 choice = st.sidebar.selectbox("Navigate", menu, index=default_index)
-# ✅ Optional logout button
+
+# ✅ Logout button
 if st.session_state.token:
     if st.sidebar.button("🚪 Logout"):
         st.session_state.token = None
@@ -30,7 +36,6 @@ if st.session_state.token:
         st.session_state.page = "🔐 Login"
         st.success("Logged out successfully.")
         st.stop()
-
 
 # Page routing
 if choice == "🏠 Home":
