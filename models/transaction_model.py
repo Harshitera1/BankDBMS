@@ -18,3 +18,8 @@ def get_transactions_by_user(user_id):
     return list(transaction_collection.find({
         "$or": [{"sender_id": user_id}, {"receiver_id": user_id}]
     }).sort("timestamp", -1))
+def get_transactions_by_account(account_number):
+    return list(transaction_collection.find({
+        "$or": [{"sender_id": account_number}, {"receiver_id": account_number}]
+    }).sort("timestamp", -1))
+
