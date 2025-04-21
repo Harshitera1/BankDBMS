@@ -26,18 +26,21 @@ def dashboard():
     balance = account.get("balance", 0)
 
     # ✅ Welcome box with account info
+    # Inside dashboard()
+
     st.markdown(f"""
         <div style='
-            background-color:#e3f2fd;
+            background-color:#e0f7fa;
             padding: 15px 25px;
             border-radius: 10px;
             margin-bottom: 20px;
         '>
-            <h3 style='color:#0077b6;'>👋 Welcome, {user_data['username'].capitalize()} ({user_data['role'].capitalize()})</h3>
+            <h3 style='color:#004d40;'>👋 Welcome, {user_data['username'].capitalize()} ({user_data['role'].capitalize()})</h3>
             <p style='font-size:16px;'><b>💳 Account Number:</b> <code>{account_number}</code></p>
             <p style='font-size:16px;'><b>💰 Balance:</b> ₹{balance:,.2f}</p>
         </div>
     """, unsafe_allow_html=True)
+
 
     # 🏢 Branch Info
     branch = db.branches.find_one({"ifsc_code": user_data.get("branch_id")})

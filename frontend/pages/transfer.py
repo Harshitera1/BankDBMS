@@ -47,7 +47,7 @@ def transfer_page():
 
     # 🔍 Transaction History
     st.markdown("---")
-    st.subheader("📄 Recent Transactions")
+    st.subheader("📄 Transaction History")
     transactions = get_transactions_by_account(sender_account_number)
 
     if not transactions:

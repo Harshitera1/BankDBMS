@@ -17,23 +17,28 @@ def register_user(username, password, role, full_name, ifsc_code, email=None, po
         if not created:
             return False, "❌ Username already exists."
 
-        if not account_number or len(account_number.strip()) < 6:
-            return False, "❌ Please provide a valid account number (min 6 digits)."
-
+        if not account_number:
+            return False, "❌ Account number is required."
+        
         account_number = account_number.strip()
 
+        # ✅ Enforce 10-digit number rule
+        if not account_number.isdigit() or len(account_number) != 10:
+            return False, "❌ Account number must be exactly 10 digits and numeric."
+
+        # ✅ Check uniqueness
         existing = account_model.get_account_by_number(account_number)
         if existing:
             return False, f"❌ Account number `{account_number}` is already taken."
 
-        # Create account
+        # ✅ Create account
         account_model.collection.insert_one({
             "user_id": user_id,
             "account_number": account_number,
             "balance": initial_balance
         })
 
-        # Role-specific profile creation
+        # ✅ Role-specific handling
         if role == "customer":
             success, msg = create_customer(user_id, full_name, email, ifsc_code)
             return success, f"✅ Customer registered: {msg}\n🏦 Account Number: {account_number}\n💰 Initial Balance: ₹{initial_balance}"
