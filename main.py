@@ -13,6 +13,9 @@ try:
     from frontend.pages.dashboard import dashboard
     from frontend.pages.transfer import transfer_page
     from frontend.pages.view_users import view_users_page
+    from frontend.pages.loan_application import loan_application_page
+    from frontend.pages.my_loans import my_loans_page
+    from frontend.pages.loan_management import loan_management_page
 except Exception as e:
     st.error(f"🚨 Failed to import page modules: {e}")
     st.stop()
@@ -25,7 +28,8 @@ if "token" not in st.session_state:
 if "page" not in st.session_state:
     st.session_state.page = "🏠 Home"
 
-menu = ["🏠 Home", "🔐 Login", "📝 Register", "📊 Dashboard", "💸 Transfer", "👥 View Users"]
+menu = ["🏠 Home", "🔐 Login", "📝 Register", "📊 Dashboard", "💸 Transfer", "👥 View Users", 
+        "💸 Apply for Loan", "📑 My Loans", "🏦 Loan Management"]
 default_index = menu.index(st.session_state.page)
 choice = st.sidebar.selectbox("Navigate", menu, index=default_index)
 
@@ -58,5 +62,14 @@ elif choice == "💸 Transfer":
 elif choice == "👥 View Users":
     st.session_state.page = "👥 View Users"
     view_users_page()
-print("🧪 Starting app...")
+elif choice == "💸 Apply for Loan":
+    st.session_state.page = "💸 Apply for Loan"
+    loan_application_page()
+elif choice == "📑 My Loans":
+    st.session_state.page = "📑 My Loans"
+    my_loans_page()
+elif choice == "🏦 Loan Management":
+    st.session_state.page = "🏦 Loan Management"
+    loan_management_page()
 
+print("🧪 App started successfully...")
