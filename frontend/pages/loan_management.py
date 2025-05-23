@@ -75,6 +75,6 @@ def loan_management_page():
             success, message = reject_loan(loan['loan_id'])
             if success:
                 st.success(message)
-                st.experimental_rerun()  # Refresh the page to update the list
+                st.rerun()  # Refresh the page to update the list
             else:
                 st.error(message)

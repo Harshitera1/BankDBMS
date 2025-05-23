@@ -29,16 +29,38 @@ def dashboard():
     # Inside dashboard()
 
     st.markdown(f"""
-        <div style='
-            background-color:#e0f7fa;
-            padding: 15px 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        '>
-            <h3 style='color:#004d40;'>👋 Welcome, {user_data['username'].capitalize()} ({user_data['role'].capitalize()})</h3>
-            <p style='font-size:16px;'><b>💳 Account Number:</b> <code>{account_number}</code></p>
-            <p style='font-size:16px;'><b>💰 Balance:</b> ₹{balance:,.2f}</p>
-        </div>
+      <div style='
+    background-color: #e6f0fa; /* Softer blue background for a clean look */
+    padding: 20px 30px; /* Slightly more padding for better spacing */
+    border-radius: 12px; /* Softer, modern rounded corners */
+    margin-bottom: 25px; /* Increased margin for separation */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-left: 5px solid #0288d1; /* Accent border for visual pop */
+'>
+    <h3 style='
+        color: #01579b; /* Darker blue for better contrast and readability */
+        font-family: "Arial", sans-serif; /* Clean, modern font */
+        margin-bottom: 10px; /* Spacing below the heading */
+    '>
+        👋 Welcome, {user_data['username'].capitalize()} ({user_data['role'].capitalize()})
+    </h3>
+    <p style='
+        font-size: 16px; 
+        color: #333; /* Darker text for better readability */
+        font-family: "Arial", sans-serif;
+        margin: 5px 0; /* Consistent spacing between paragraphs */
+    '>
+        <b>💳 Account Number:</b> <code style='background-color: #f5f5f5; padding: 2px 6px; border-radius: 4px;'>{account_number}</code>
+    </p>
+    <p style='
+        font-size: 16px; 
+        color: #333; 
+        font-family: "Arial", sans-serif;
+        margin: 5px 0;
+    '>
+        <b>💰 Balance:</b> <span style='color: #2e7d32; font-weight: bold;'>₹{balance:,.2f}</span> <!-- Green for balance to indicate money -->
+    </p>
+</div>
     """, unsafe_allow_html=True)
 
 
